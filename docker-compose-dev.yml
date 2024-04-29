@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.3
+    ports:
+      - '8080:8080'
+    container_name: keycloak-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: changeme
+      KC_HOSTNAME_STRICT: false
+      # KC_DB: mariadb | mssql |  mysql | oracle | postgres
+      # KC_DB_URL: <JDBC-URL>
+      # KC_DB_USERNAME: <DB-USER>
+      # KC_DB_PASSWORD: <DB-PASSWORD>
+      # KC_HOSTNAME_PORT: 3000
+    command:
+      - '--verbose'
+      - 'start-dev'

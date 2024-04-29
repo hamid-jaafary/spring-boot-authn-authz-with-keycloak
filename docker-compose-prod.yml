@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  mykeycloak:
+#    image: mykeycloak:latest-certs
+    image: mykeycloak:latest-self
+    ports:
+      - '8443:8443'
+    container_name: mykeycloak-prod
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: changeme
+      KC_HTTP_ENABLED: false
+      KC_HTTPS_PORT: 8443
+      KC_HOSTNAME_STRICT: true
+      KC_HOSTNAME_STRICT_BACKCHANNEL: true
+      KC_HOSTNAME: localhost
+    command:
+      - 'start'
+      - '--optimized'
