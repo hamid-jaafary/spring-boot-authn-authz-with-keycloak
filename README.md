@@ -128,8 +128,50 @@ docker-compose -f "/path/to/docker-compose-prod.yml" up -d
 <details>
 <summary><h2>Enabling Authn & Authz in Spring Boot</h2></summary>
 
+**4. add corresponding dependencies to pom.xml:**
 
+add two following dependencies to pom.xml of the spring boot project:
+
+```xml
+    <dependencies>
+  ....
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-client</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+  </dependency>
+  ....
+</dependencies>
+```
+* **spring-boot-starter-oauth2-client**:
+
+This Maven dependency provides a convenient way to integrate OAuth2 client functionality into a Spring Boot application. If you want to implement client-credentials flow in your application you need this dependency.
+
+* **spring-boot-starter-oauth2-resource-server**:
+
+This Maven dependency enables you to set up a resource server that can authenticate and authorize incoming requests using OAuth2 tokens. In other words, it allows your Spring Boot application to act as an OAuth2-protected resource server.
+
+**5. add required resource files:**
+
+Supposing you've created realm called `myrealm` in Keycloak. Update its address and name in provided `application-client.yml` and `application-resource.yml` files.
+Then add them to resources standard maven folder of corresponding project.
+
+**6. enable corresponding profile in application.yml file**
+
+```yaml
+spring:
+  application:
+    name: APPLICATION_NAME
+  profiles:
+    active: OTHER_PROFILES,client,resource
+```
+If you want to implement client-credentials flow in your application you need `application-client.yml`.
 </details>
+
+<hr/>
 
 Several days were required for me to ensure everything was up and running flawlessly. I must acknowledge the exceptional quality and efficiency of the original documents. I recommend consulting them during your setup process. I hope this material has been informative and helpful in your journey towards implementing authentication and authorization in your spring boot applications using powerful `Keycloak IAM`.
 

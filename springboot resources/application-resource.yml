@@ -1,0 +1,10 @@
+keycloak-client:
+  server-url: https://kc.example.com:8443
+  realm:  myrealm
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
